@@ -12,7 +12,7 @@ $(document).ready(function() {
     function displayGifs() {
         var poke = $(this).text();
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-            poke + "&api_key=dc6zaTOxFJmzC&limit=10";
+            poke + "&api_key=dc6zaTOxFJmzC&limit=10&rating=PG&lang=en";
 
         $.ajax({
                 url: queryURL,

@@ -39,8 +39,8 @@ div.title {
     font-size: 18vw;
     text-shadow: 1vw 1vw black;
     height: 100%;
-    color: white;
-    mix-blend-mode: multiply;
+    color: var(--light-yellow);
+    mix-blend-mode: hard-light;
     background-color: var(--dark-red);
     margin: 0;
 }

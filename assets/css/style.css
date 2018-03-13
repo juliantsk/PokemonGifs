@@ -14,6 +14,7 @@
     --blue: #3B4CCA;
     --light-red: #FF0000;
     --dark-red: #CC0000;
+    --icon: 1.3em;
 }
 
 body {
@@ -78,15 +79,26 @@ button,
 .download,
 a,
 .favorite {
-    height: 1em;
+    height: var(--icon);
     display: inline-block;
     float: right;
+    margin: none;
 }
 
 .remove {
-    stroke: white;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 780px) {
+     :root {
+        --icon: 3em;
+    }
+    .download,
+    a,
+    .favorite {
+        margin: 2px 0;
+    }
 }

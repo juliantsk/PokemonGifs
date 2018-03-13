@@ -52,7 +52,8 @@ div.title {
 button,
 #add-pokemon,
 .pokemon-gif,
-#poke-input {
+#poke-input,
+.remove {
     background-color: white;
     font-family: "Pokemon";
     border-width: 5px;
@@ -63,6 +64,7 @@ button,
 .gifs-appear-here {}
 
 .pokemon-gif {
+    position: relative;
     float: left;
 }
 
@@ -73,9 +75,18 @@ button,
     clear: both;
 }
 
-#download,
-a {
+.download,
+a,
+.favorite {
     height: 1em;
     display: inline-block;
     float: right;
+}
+
+.remove {
+    stroke: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -72,10 +72,24 @@ $(document).ready(function() {
                     var p = $("<p>").text("Rating: " + rating);
 
                     var pokemonImage = $("<img>");
-                    pokemonImage.attr("src", results[i].images.fixed_height.url);
+                    pokemonImage.attr({
+                        class: "pokemon-img",
+                        src: results[i].images.fixed_height_still.url,
+                        "data-still": results[i].images.fixed_height_still.url,
+                        "data-animate": results[i].images.fixed_height.url,
+                        "data-state": "still"
+                    });
 
+                    var pokemonLink = $("<a href=" + results[i].images.fixed_height_still.url + " download>")
+
+                    var downloadImage = $("<img>");
+                    downloadImage.attr({ src: "assets/images/download.png", id: "download" });
+                    pokemonLink.prepend(downloadImage);
+
+                    gifDiv.prepend(pokemonLink);
                     gifDiv.prepend(p);
                     gifDiv.prepend(pokemonImage);
+
 
                     $("#gifs-appear-here").append(gifDiv);
                 };
@@ -83,11 +97,29 @@ $(document).ready(function() {
         $("div.title").css("display", "none");
     };
 
+    function animate() {
+        var state = $(this).attr("data-state");
+
+        var animate = $(this).attr("data-animate");
+        var still = $(this).attr("data-still");
+
+        if (state === "still") {
+            $(this).attr("src", animate);
+            console.log("success");
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", still);
+            $(this).attr("data-state", "still");
+        };
+    }
+
     // Takes the user input and adds it to the list of pokemon.
     $("#add-pokemon").on("click", function(event) {
         event.preventDefault();
         var pokeInput = $("#poke-input").val().trim();
-        pokemon.push(pokeInput);
+        if (pokeInput !== "") {
+            pokemon.push(pokeInput);
+        }
 
         $("#poke-input").val("");
         displayTopics();
@@ -96,6 +128,7 @@ $(document).ready(function() {
 
     $(document).on("click", ".topic", displayGifs);
     $(document).on("click", "#load", displayGifs);
+    $(document).on("click", ".pokemon-img", animate)
 
     titleBackground();
     displayTopics();

@@ -44,6 +44,11 @@ div.title {
     margin: 0;
 }
 
+#poke-form {
+    margin: 10px auto;
+    text-align: center;
+}
+
 button,
 #add-pokemon,
 .pokemon-gif,
@@ -66,4 +71,11 @@ button,
     content: "";
     display: table;
     clear: both;
+}
+
+#download,
+a {
+    height: 1em;
+    display: inline-block;
+    float: right;
 }

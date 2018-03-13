@@ -1,4 +1,7 @@
 var pokemon = ["Psyduck", "Mewtwo", "Pikachu", "Suicune", "Charizard", "Rayquaza", "Gengar", "Blaziken", "Pokeball", "Mimikyu"];
+var currentTopic = "";
+var loadMore = false;
+var offset = 0;
 
 $(document).ready(function() {
     function displayTopics() {
@@ -23,24 +26,36 @@ $(document).ready(function() {
 
                 for (var i = 0; i < results.length; i++) {
                     imageURLs += "url(\"" + results[i].images.fixed_height_still.url + "\")";
-                    posNumber += ((results[i].images.fixed_height_still.width / results[i].images.fixed_height_still.height) * 15);
+                    posNumber += ((results[i].images.fixed_height_still.width / results[i].images.fixed_height_still.height - 0.01) * 15);
                     imagePositions += posNumber + "vw";
                     if (i !== (results.length - 1)) {
                         imageURLs += ",";
                         imagePositions += ",";
                     }
                 }
-                console.log(imageURLs);
-                console.log(imagePositions);
                 $("div.title").css("background-image", imageURLs);
                 $("div.title").css("background-position", imagePositions);
             });
     };
 
     function displayGifs() {
-        var poke = $(this).text();
+        console.log(currentTopic);
+        if (currentTopic !== $(this).text() && $(this).text() !== "Load 10 More Gifs") {
+            $("#gifs-appear-here").empty();
+            offset = 0;
+        }
+        if (!(loadMore)) {
+            $("body").append($("<button>").attr("id", "load").text("Load 10 More Gifs"));
+            loadMore = true;
+        }
+        if ($(this).text() !== "Load 10 More Gifs") {
+            currentTopic = $(this).text();
+        }
+        offset += 10;
+        console.log(offset);
+        console.log(currentTopic);
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-            poke + "&api_key=dc6zaTOxFJmzC&limit=10&rating=PG&lang=en";
+            currentTopic + "&api_key=dc6zaTOxFJmzC&limit=10&offset=" + offset + "&rating=PG&lang=en";
 
         $.ajax({
                 url: queryURL,
@@ -62,9 +77,10 @@ $(document).ready(function() {
                     gifDiv.prepend(p);
                     gifDiv.prepend(pokemonImage);
 
-                    $("#gifs-appear-here").prepend(gifDiv);
+                    $("#gifs-appear-here").append(gifDiv);
                 };
             });
+        $("div.title").css("display", "none");
     };
 
     // Takes the user input and adds it to the list of pokemon.
@@ -76,10 +92,10 @@ $(document).ready(function() {
         $("#poke-input").val("");
         displayTopics();
 
-
     });
 
     $(document).on("click", ".topic", displayGifs);
+    $(document).on("click", "#load", displayGifs);
 
     titleBackground();
     displayTopics();

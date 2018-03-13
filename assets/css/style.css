@@ -19,6 +19,8 @@
 body {
     font-family: "Pokemon";
     background-image: url("../images/city_bg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 div.title {
@@ -42,7 +44,26 @@ div.title {
     margin: 0;
 }
 
-.topic,
-#add-pokemon {
+button,
+#add-pokemon,
+.pokemon-gif,
+#poke-input {
+    background-color: white;
     font-family: "Pokemon";
+    border-width: 5px;
+    border-style: groove;
+    margin: 10px;
+}
+
+.gifs-appear-here {}
+
+.pokemon-gif {
+    float: left;
+}
+
+#load {
+    margin: 20px auto;
+    content: "";
+    display: table;
+    clear: both;
 }

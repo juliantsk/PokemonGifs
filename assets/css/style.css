@@ -48,7 +48,7 @@ div.title {
     -webkit-text-stroke-color: var(--blue);
 }
 
-#smaller {
+#overlap {
     font-size: 18vw;
 }
 

@@ -168,33 +168,49 @@ $(document).ready(function() {
         localStorage.setItem("Favorite Pokemon", JSON.stringify(favoritesArray));
     };
 
+    // Adds a gif to the user's favorites list, which is stored locally.
     function addFavorite() {
+        // Creates an object which holds the information to store for the gif...
         var item = { still: $(this).parent().attr("data-still"), animate: $(this).parent().attr("data-animate"), rating: $(this).parent().attr("data-rating") };
+        // ...pushes that object to our array variable...
         favoritesArray.push(item);
+        // ...and updates the local storage with the newly updated array.
         localStorage.setItem("Favorite Pokemon", JSON.stringify(favoritesArray));
     }
 
 
-
+    // Displays favorites stored in the user's local storage.
     function displayFavorites() {
+        // Empties the div containing divs...
         $("#gifs-appear-here").empty();
+        // ...removes the load more button, if it is on the page...
         $("#load").remove();
+        // ...resets the loadMoare variable to false...
         loadMore = false;
+        // ...and sets the favorites variable to true.
         favoritesDisplayed = true;
 
+        // Grabs the "Favorite Pokemon" array from the user's local storage and stores it in the favoriteArray variable.
         favoritesArray = JSON.parse(localStorage.getItem("Favorite Pokemon"));
 
+        // For every item in the array...
         for (i = 0; favoritesArray[i]; i++) {
+            // ...create a div...
             var gifDiv = $("<div class='pokemon-gif'>");
 
+            // When mousing over this div...
             gifDiv.mouseover(function() {
+                // ...show the button to remove this gif from the user's favorites.
                 $(this).children(".remove").show();
             });
 
+            // When the user's mouse leaves this div...
             gifDiv.mouseout(function() {
+                // ...hide the "remove" button again.
                 $(this).children(".remove").hide();
             });
 
+            // Set the div attributes.
             gifDiv.attr({
                 "data-still": favoritesArray[i].still,
                 "data-animate": favoritesArray[i].animate,
@@ -205,11 +221,14 @@ $(document).ready(function() {
             // Initiate a new p tag to display the rating
             var p = $("<p>").text("Rating: " + favoritesArray[i].rating);
 
+            // Initiate a new img tag...
             var pokemonImage = $("<img>");
+            // ...with a class of "pokemon-img" and a src pulled from the array.
             pokemonImage.attr({
                 class: "pokemon-img",
                 src: favoritesArray[i].still,
             });
+
             // Initiate a download link.
             var pokemonLink = $("<a href=" + favoritesArray[i].animate + " download>")
 
@@ -234,29 +253,38 @@ $(document).ready(function() {
             // Add the div we created to the gif containing div.
             $("#gifs-appear-here").append(gifDiv);
 
+            // Hide the remove button.
             $(".remove").hide();
         }
 
     }
 
+    // Removes gifs from the user's local storage.
     function removeFavorite() {
+        // Finds the gif's index stored in the div's attributes, and sets it to a variable, "index"...
         var index = $(this).parent().attr("index");
 
+        // ...uses that index to remove the gif from the favoritesArray...
         favoritesArray.splice(index, 1);
 
+        // ...and updates the "Favorite Pokemon" array in the user's local storage.
         localStorage.setItem("Favorite Pokemon", JSON.stringify(favoritesArray));
+        // Re-displays the list of Favorites.
         displayFavorites();
     }
 
     // Takes the user input and adds it to the list of pokemon.
     $("#add-pokemon").on("click", function(event) {
         event.preventDefault();
+        // Takes the user input...
         var pokeInput = $("#poke-input").val().trim();
+        // ...adds it to the list of pokemon topics...
         if (pokeInput !== "") {
             pokemon.push(pokeInput);
         }
-
+        // ...then resets the input field...
         $("#poke-input").val("");
+        // ...and re-displays the topics on the page.
         displayTopics();
 
     });

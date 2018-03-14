@@ -69,8 +69,6 @@ button,
     margin: 10px;
 }
 
-.gifs-appear-here {}
-
 .pokemon-gif {
     position: relative;
     float: left;
@@ -87,9 +85,12 @@ button,
 a,
 .favorite {
     height: var(--icon);
-    display: inline-block;
     float: right;
     margin: none;
+}
+
+.favorite:active {
+    background-color: var(--dark-yellow);
 }
 
 .remove {

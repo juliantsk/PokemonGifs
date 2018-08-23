@@ -8,7 +8,7 @@ This is a web app that interfaces with the Giphy API to view Pokemon gifs and sa
 * [Giphy API](https://developers.giphy.com/docs/)
 * jQuery
 
-## Usage
+## Features
 
 * Find Pokemon gifs.
 * Save your favorite Pokemon gifs.
